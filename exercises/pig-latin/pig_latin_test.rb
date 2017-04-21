@@ -104,6 +104,7 @@ class PigLatinTest < Minitest::Test
     skip
     assert_equal "ickquay astfay unray", PigLatin.translate("quick fast run")
   end
+
   # Problems in exercism evolve over time, as we find better ways to ask
   # questions.
   # The version number refers to the version of the problem you solved,
