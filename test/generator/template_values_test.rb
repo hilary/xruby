@@ -62,61 +62,6 @@ module Generator
       $LOAD_PATH.unshift 'test/fixtures/xruby/lib'
     end
 
-    def complex_canonical_data
-      complex_canonical_data = Minitest::Mock.new
-      complex_canonical_data.expect(
-        :to_s,
-        <<-TEXT
-{
-  "exercise": "beer-song",
-  "version": "1.0.0",
-  "cases": [
-    {
-      "description": "verse",
-      "cases": [
-        {
-          "description": "single verse",
-          "cases": [
-            {
-              "description": "first generic verse",
-              "property": "verse",
-              "number": 99,
-              "expected": "99 bottles of beer on the wall, YAAAR"
-            },
-            {
-              "description": "last generic verse",
-              "property": "verse",
-              "number": 3,
-              "expected": "3 bottles of beer on the wall, YAAAR"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "description": "lyrics",
-      "cases": [
-        {
-          "description": "multiple verses",
-          "cases": [
-            {
-              "description": "first two verses",
-              "property": "verses",
-              "beginning": 99,
-              "end": 98,
-              "expected": "99 bottles of beer on the wall, YAR, PIRATES CAN'T COUNT"
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
-TEXT
-      )
-      complex_canonical_data
-    end
-
     def test_extract_via_proc
       simple_canonical_data = File.read('test/fixtures/metadata/exercises/simple/canonical-data.json')
       cases = CaseValues.extract(exercise_name: 'alpha', exercise_data: simple_canonical_data.to_s)
@@ -132,6 +77,7 @@ TEXT
     end
 
     def test_multi_level_auto_extraction
+      complex_canonical_data = File.read('test/fixtures/metadata/exercises/complex/canonical-data.json')
       cases = CaseValues.extract(exercise_name: 'gamma', exercise_data: complex_canonical_data.to_s)
       expected = [
         GammaCase.new(description: 'first generic verse', property: 'verse', number: 99,
