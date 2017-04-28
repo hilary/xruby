@@ -4,8 +4,7 @@
 * [Ruby](https://www.ruby-lang.org/)
 * [Ruby Gems](https://rubygems.org/)
 * [Bundler](http://bundler.io/)
-* [RVM](https://rvm.io/)
-* [rbenv](https://github.com/rbenv/rbenv)
+* [Managers](https://www.ruby-lang.org/en/documentation/installation/#managers)
 
 ### Docs
 * [Ruby Doc](http://ruby-doc.org/)
