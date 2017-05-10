@@ -17,7 +17,17 @@ module Generator
     private
 
     def generators
-      [generator_class.new(repository(@options[:exercise_name]))]
+      exercise_names.map do |exercise_name|
+        generator_class.new(repository(exercise_name))
+      end
+    end
+
+    def exercise_names
+      if @options[:all]
+        Files::GeneratorCases.available(@paths.track)
+      else
+        [@options[:exercise_name]]
+      end
     end
 
     def generator_class
