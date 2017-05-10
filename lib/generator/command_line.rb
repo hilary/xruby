@@ -17,16 +17,16 @@ module Generator
     private
 
     def generators
-      [generator_class.new(repository)]
+      [generator_class.new(repository(@options[:exercise_name]))]
     end
 
     def generator_class
       @options[:freeze] ? GenerateTests : UpdateVersionAndGenerateTests
     end
 
-    def repository
+    def repository(exercise_name)
       LoggingRepository.new(
-        repository: Repository.new(paths: @paths, exercise_name: @options[:exercise_name]),
+        repository: Repository.new(paths: @paths, exercise_name: exercise_name),
         logger: logger
       )
     end
