@@ -7,45 +7,32 @@ module Generator
       track: 'test/fixtures/xruby'
     )
 
-    def test_default_options
-      args = %w(beta)
-      Files::GeneratorCases.stub :available, %w(beta) do
-        assert_instance_of(
-          UpdateVersionAndGenerateTests,
-          CommandLine.new(FixturePaths).parse(args)
-        )
-      end
+    def test_parse_single
+      options = %w(alpha)
+      expected = ['alpha']
+      result = CommandLine.new(FixturePaths).parse(options)
+      assert_equal expected, result.map(&:exercise_name)
     end
 
-    def test_frozen_option
-      args = %w(-f beta)
-      Files::GeneratorCases.stub :available, %w(beta) do
-        assert_instance_of(
-          GenerateTests,
-          CommandLine.new(FixturePaths).parse(args)
-        )
-      end
+    def test_parse_all
+      options = %w(--all)
+      expected = %w(alpha beta)
+      result = CommandLine.new(FixturePaths).parse(options)
+      assert_equal expected, result.map(&:exercise_name)
     end
 
-    def test_all_option
-      args = %w(-a)
-      fake_generators = %w(some fake generator names also-hyphen-ated)
-      Files::GeneratorCases.stub :available, fake_generators do
-        assert_instance_of(
-          GenerateAllTests,
-          CommandLine.new(FixturePaths).parse(args)
-        )
-      end
+    def test_parse_freeze
+      options = %w(--freeze alpha)
+      expected = [Generator::GenerateTests]
+      result = CommandLine.new(FixturePaths).parse(options)
+      assert_equal expected, result.map(&:class)
     end
 
-    def test_verbose_option
-      args = %w(-v beta)
-      Files::GeneratorCases.stub :available, %w(beta) do
-        assert_instance_of(
-          UpdateVersionAndGenerateTests,
-          CommandLine.new(FixturePaths).parse(args)
-        )
-      end
+    def test_parse_no_freeze
+      options = %w(alpha)
+      expected = [Generator::UpdateVersionAndGenerateTests]
+      result = CommandLine.new(FixturePaths).parse(options)
+      assert_equal expected, result.map(&:class)
     end
   end
 end
