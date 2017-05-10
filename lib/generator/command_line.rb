@@ -11,13 +11,13 @@ module Generator
     def parse(args)
       parser = GeneratorOptparser.new(args, @paths)
       @options = parser.options
-      generator if parser.options_valid?
+      return generators if parser.options_valid?
     end
 
     private
 
-    def generator
-      generator_class.new(repository)
+    def generators
+      [generator_class.new(repository)]
     end
 
     def generator_class

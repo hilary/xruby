@@ -62,21 +62,21 @@ module Generator
     def test_default_options
       args = %w(beta)
       Files::GeneratorCases.stub :available, %w(beta) do
-        assert_instance_of UpdateVersionAndGenerateTests, CommandLine.new(FixturePaths).parse(args)
+        assert_instance_of UpdateVersionAndGenerateTests, CommandLine.new(FixturePaths).parse(args).first
       end
     end
 
     def test_frozen_option
       args = %w(-f beta)
       Files::GeneratorCases.stub :available, %w(beta) do
-        assert_instance_of GenerateTests, CommandLine.new(FixturePaths).parse(args)
+        assert_instance_of GenerateTests, CommandLine.new(FixturePaths).parse(args).first
       end
     end
 
     def test_verbose_option
       args = %w(-v beta)
       Files::GeneratorCases.stub :available, %w(beta) do
-        assert_instance_of UpdateVersionAndGenerateTests, CommandLine.new(FixturePaths).parse(args)
+        assert_instance_of UpdateVersionAndGenerateTests, CommandLine.new(FixturePaths).parse(args).first
       end
     end
   end
