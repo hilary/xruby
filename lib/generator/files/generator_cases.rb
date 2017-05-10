@@ -20,7 +20,7 @@ module Generator
         %r{([^/]*)_cases\.rb$}.match(filename).captures[0].tr('_', '-')
       end
 
-      def load_filename(track_path, exercise_name)
+      def source_filename(track_path, exercise_name)
         "%s.rb" % File.join(meta_generator_path(track_path, exercise_name), filename(exercise_name))
       end
 
